@@ -1,6 +1,3 @@
-.area {
-  height: 25.6rem;
-}
 .back-area {
   height: 2.4rem;
   display: flex;
@@ -21,11 +18,4 @@
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #000000;
-}
-.no-address {
-  color: rgb(112, 112, 112);
-  font-size: 1.6rem;
-  font-family: WorkSans-Regular, WorkSans;
-  font-weight: 400;
-  margin-top: 12.2rem;
 }

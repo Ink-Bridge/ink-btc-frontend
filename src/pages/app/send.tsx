@@ -6,12 +6,6 @@ import SendTo from '../../assets/send.webp';
 export const Send: FC = (): ReactElement => {
   return (
     <div className="area">
-      <div className="back-area">
-        <div className="back-holder">
-          <img src={Back} alt="" />
-          <span className="back">Back</span>
-        </div>
-      </div>
       <h2 id="title">SEND BTC TO THIS ADDRESS</h2>
       <div>
         <img className="send" src={SendTo} alt="" />
