@@ -1,0 +1,11 @@
+.head {
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 4rem;
+  background: #FFFFFF;
+}
+.head img {
+  width: 13.8rem;
+}

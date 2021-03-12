@@ -1,0 +1,49 @@
+.action {
+  width: 56rem;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0);
+}
+.tabs {
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: left;
+}
+.tab-title {
+  height: 4.8rem;
+  width: 20rem;
+  line-height: 4.8rem;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+} 
+
+.request-tab-title {
+  background-color: #F7931A;
+} 
+.verify-tab-title {
+  background-color: #535353;
+} 
+.action-container {
+  padding: 2.4rem;
+  background-color: white;
+  width: 56rem;
+  height: 36rem;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08);
+}
+
+.balance-area {
+  text-align: center;
+  height: 5.6rem;
+}
+.balance-title {
+  font-size: 1.4rem;
+  color: rgb(110, 110, 110);
+  line-height: 1.6rem;
+}
+.balance {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #000000;
+  line-height: 3.6rem;
+  height: 2.8rem;
+}
