@@ -2,10 +2,12 @@
   "name": "ink-btc-frontend",
   "version": "1.0.0",
   "private": true,
-  "denpendencies": {
+  "dependencies": {
     "@polkadot/api": "^3.9.4-0",
     "@polkadot/api-contract": "^3.9.4-0",
-    "@polkadot/ui-keyring": "^0.71.3",
+    "@polkadot/extension-dapp": "^0.37.2",
+    "@polkadot/ui-keyring": "^0.66.2",
+    "@polkadot/ui-settings": "^0.67.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "web-vitals": "^1.0.1"
@@ -46,12 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "dependencies": {
-    "@polkadot/api-contract": "^3.9.4-0",
-    "@polkadot/ui-keyring": "^0.71.3",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "web-vitals": "^1.0.1"
   }
 }

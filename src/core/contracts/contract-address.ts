@@ -1,2 +1,2 @@
-export const ApplicationAddr = '3g2dAFdKX9KGRDRw2dRsRzsi7WTkoazZyKM8Bu6DUKCT2Spj';
-export const BridgeAddr = '3bajJdP64vJJMm9ZFTNiskh1a6VCwsCYQqqrJJtn78EjxvAB';
+export const ExampleAddr = '3d2Y9LD9W3aLXZTUKvYJN26CtRgLEtTdAC3rLWHD53WTt6nQ';
+export const WbtcAddr = '3eL4EV9Ew3zBfxeu7Qmk1ENWTJnypxgJAy3V7VtbDHuJGtqC';

@@ -1,3 +1,5 @@
+import { KeyringPair } from '@polkadot/keyring/types';
+
 export type AccountProps = {
-  currentAccount: string;
+  currentAccount?: KeyringPair;
 };

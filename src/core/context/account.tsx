@@ -1,33 +1,20 @@
-import React from 'react';
+import keyring from '@polkadot/ui-keyring';
+import { KeyringPair } from '@polkadot/keyring/types';
+import React, { useMemo, useState } from 'react';
+import { useApi } from '../hooks/use-api';
 import { AccountContext } from './account-context';
-
 export const AccountProvider: React.FC = ({ children }) => {
-  // console.log('account provider');
-  // const { isApiReady } = useApi();
-  // const [currentAccount, setCurrentAccount] = useState<string>('');
+  const { isApiReady } = useApi();
+  const [currentAccount, setCurrentAccount] = useState<KeyringPair>();
 
-  // useMemo(() => {
-  //   if (!isApiReady) return;
-  //   keyring.loadAll(
-  //     {
-  //       genesisHash: api.genesisHash,
-  //       isDevelopment,
-  //       ss58Format,
-  //       store,
-  //       type: 'sr25519'
-  //     },
-  //     injectedAccounts
-  //   );
-  //   const accounts = keyring.getPairs();
-  //   setCurrentAccount(accounts[0]?.address);
-  // }, [isApiReady]);
+  useMemo(() => {
+    if (!isApiReady) return;
 
-  // const value = useMemo(
-  //   () => ({
-  //     currentAccount,
-  //   }),
-  //   [currentAccount],
-  // );
+    const accounts = keyring.getPairs();
+    console.log('accounts', accounts);
+    
+    setCurrentAccount(accounts[1]);
+  }, [isApiReady]);
 
-  return <AccountContext.Provider value={{ currentAccount: '5C8R1N8L6jZJu9Cm4RzdASggyjfzCBJgxFMMq1PDHeraw7eJ' }}>{children}</AccountContext.Provider>;
+  return <AccountContext.Provider value={{ currentAccount }}>{children}</AccountContext.Provider>;
 };

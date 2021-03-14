@@ -27,7 +27,7 @@ export const useContractQuery = ({ contract, method }: ContractQueryProps) => {
 
   const read = useCallback(
     async (...fields: any[]) => {
-      return contractQuery(currentAccount, contract, method, ...fields);
+      return contractQuery(currentAccount!.address, contract, method, ...fields);
     },
     [currentAccount, contract, method]
   );

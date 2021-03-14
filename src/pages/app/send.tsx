@@ -1,9 +1,8 @@
 import React, { FC, ReactElement } from 'react';
 import './send.css';
-import Back from '../../assets/back.webp';
 import SendTo from '../../assets/send.webp';
 
-export const Send: FC = (): ReactElement => {
+export const Send: FC<{ address: string }> = ({ address }): ReactElement => {
   return (
     <div className="area">
       <h2 id="title">SEND BTC TO THIS ADDRESS</h2>
@@ -12,7 +11,7 @@ export const Send: FC = (): ReactElement => {
       </div>
       <div className="address">
         <span>
-          3C4efA4gxox66N7KkDwUwpCU67qr4CLR8j
+          { address }
         </span>
       </div>
       <div className="address-button">

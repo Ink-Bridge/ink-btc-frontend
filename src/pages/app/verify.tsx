@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useState } from 'react';
-import { useBridgeContract } from '../../core/hooks/use-bridge-contract';
-import { useContractQuery } from '../../core/hooks/use-contract-query';
+import { useContractTx } from '../../core/hooks/use-contract-tx';
+import { useExampleContract } from '../../core/hooks/use-example-contract';
 import { BackTo } from './back';
 import './verify.css';
 
@@ -18,24 +18,27 @@ interface IProps {
 export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
   const [ txHash, setTxHash ] = useState<string>('');
   const [ phase, setPhase ] = useState<Phase>(Phase.initial);
-  const { contract } = useBridgeContract();
-  const { read } = useContractQuery({ contract, method: 'isTxConfirmed' });
+  const { contract } = useExampleContract();
+  const { execute } = useContractTx({ title: 'verify transaction', contract, method: 'pushTransaction' });
 
   const handleEnter = () => {
     if (phase !== Phase.initial || !txHash) {
       return;
     }
     setPhase(Phase.loading);
-    // read(txHash).then(() => setPhase(Phase.success),  () => setPhase(Phase.fail));
-    (new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // resolve(true);
-        reject();
-      }, 1000);
-    })).then(() => {
+    execute(['', '']).then((e) => {
+      console.log(e);
       setPhase(Phase.success);
-      onVerified(txHash);
     },  () => setPhase(Phase.fail));
+    // (new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     // resolve(true);
+    //     reject();
+    //   }, 1000);
+    // })).then(() => {
+    //   setPhase(Phase.success);
+    //   onVerified(txHash);
+    // },  () => setPhase(Phase.fail));
   };
 
   const handleBack = () => {
@@ -63,17 +66,17 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
           :
           (
             phase === Phase.loading ?
-              <div className="verify-button" onClick={handleEnter}>
+              <div className="verify-button">
                 Verifying...
               </div>
               :
               (
                 phase === Phase.success ?
-                  <div className="verify-button verify-success" onClick={handleEnter}>
+                  <div className="verify-button verify-success">
                     Success
                   </div>
                   :
-                  <div className="verify-button verify-fail" onClick={handleEnter}>
+                  <div className="verify-button verify-fail">
                     Fail
                   </div>
               )
