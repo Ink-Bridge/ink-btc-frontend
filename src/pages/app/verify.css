@@ -1,5 +1,6 @@
 .area {
   height: 25.6rem;
+  position: relative;
   padding: 0rem 1.6rem;
 }
 .verify-button {
@@ -24,6 +25,12 @@
   font-size: 1.6rem;
   border: 1px solid #F7931A;
 }
+.merkle {
+  width: 48rem;
+  position: absolute;
+  top: 35rem;
+  left: 1.6rem;
+}
 .tx-hash {
   display: inline-block;
   width: 100%;
@@ -40,4 +47,11 @@
 }
 .verify-fail {
   background-color: #E55151;
+}
+.button-text {
+  vertical-align: middle;
+}
+.button-img {
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }

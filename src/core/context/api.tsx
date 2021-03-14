@@ -41,13 +41,13 @@ export const ApiProvider = React.memo(function Api({ children }: Props): React.R
       .then(() => web3Enable('polkadosst-js/apps'))
       .then(() => web3Accounts())
       .then(accounts => {
-        const wsProvider = new WsProvider('wss://new.staging.jupiter.patract.cn');
+        const wsProvider = new WsProvider('wss://ws.jupiter-poa.patract.cn/');
         const apiPromise = new ApiPromise({
           provider: wsProvider,
         });
 
         apiPromise.on('ready', _api => {
-          keyring.loadAll({ ss58Format: 42, type: 'sr25519' }, accounts.map(
+          keyring.loadAll({ ss58Format: 26, type: 'sr25519' }, accounts.map(
             ({ address, meta }, whenCreated) => ({
               address,
               meta: {

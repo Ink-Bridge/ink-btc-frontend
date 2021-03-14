@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useMemo, useState } from 'react';
+import { useBalance } from '../../core/hooks/use-balance';
 import './action.css';
 import { Request } from './request';
 import { Verify } from './verify';
@@ -10,9 +11,11 @@ enum TabChoosed {
 
 export const Action: FC = (): ReactElement => {
   const [ tab, setTab ] = useState<TabChoosed>(TabChoosed.request);
+  const [ signal, setSignal ] = useState<number>(0);
+  const balance = useBalance(signal);
 
   const handleVerified = (txHash: string) => {
-
+    setSignal(signal + 1);
   };
   useMemo(() => console.log(tab, 'tab'), [tab]);
 
@@ -42,7 +45,7 @@ export const Action: FC = (): ReactElement => {
         <div className="balance-area">
           <span className="balance-title">inkBTC balance</span>
           <div className="balance">
-            <span>0.00618456</span>
+            <span>{ balance }</span>
           </div>
         </div>
       </div>

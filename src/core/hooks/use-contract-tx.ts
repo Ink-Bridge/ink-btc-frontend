@@ -36,13 +36,12 @@ export const useContractTx = ({ contract, method }: ContractTxProps) => {
         const estimatedGas = await queryEstimatedWeight(fields, value);
         const tx = contract.tx[method](
           {
-            // gasLimit: estimatedGas?.toBn() || '400000000000',
-            gasLimit: 10949,
+            gasLimit: estimatedGas?.toBn() || '400000000000',
             value: value || 0
           },
           ...fields
         );
-        console.log('estimatedGas', estimatedGas, currentAccount.address);
+        console.log('estimatedGas', estimatedGas, currentAccount.address, estimatedGas?.toBn() || '400000000000');
         // const injector = await web3FromAddress(currentAccount.address);
         const injector = await web3FromSource(currentAccount.meta.source as any);
         console.log(currentAccount.meta.source, 'currentAccount.meta.source')

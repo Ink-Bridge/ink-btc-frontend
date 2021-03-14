@@ -22,15 +22,10 @@ export const Request: FC = (): ReactElement => {
   const handleEnter = () => {
     setPhase(Phase.loading);
     requestBTCAddress([]).then((addr) => {
+      console.log('addrrrrrrrrrrrr', addr)
       setBtcAddress(addr as any);
       setPhase(Phase.success);
     },  () => setPhase(Phase.fail));
-    // (new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve(true);
-    //     // reject();
-    //   }, 1000);
-    // })).then(() => setPhase(Phase.success),  () => setPhase(Phase.fail));
   };
 
   const handleBack = () => {

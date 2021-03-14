@@ -3,6 +3,8 @@ import { useContractTx } from '../../core/hooks/use-contract-tx';
 import { useExampleContract } from '../../core/hooks/use-example-contract';
 import { BackTo } from './back';
 import './verify.css';
+import SuccessSvg from '../../assets/success.svg';
+import FailSvg from '../../assets/fail.svg';
 
 enum Phase {
   initial = 'initial',
@@ -17,23 +19,24 @@ interface IProps {
 
 export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
   const [ txHash, setTxHash ] = useState<string>('');
+  const [ merkle, setMerkle ] = useState<string>('');
   const [ phase, setPhase ] = useState<Phase>(Phase.initial);
   const { contract } = useExampleContract();
   const { execute } = useContractTx({ title: 'verify transaction', contract, method: 'pushTransaction' });
 
   const handleEnter = () => {
-    if (phase !== Phase.initial || !txHash) {
+    if (!txHash || !merkle) {
       return;
     }
     setPhase(Phase.loading);
-    execute(['', '']).then((e) => {
+    execute([txHash, setMerkle, '']).then((e) => {
       console.log(e);
       setPhase(Phase.success);
     },  () => setPhase(Phase.fail));
     // (new Promise((resolve, reject) => {
     //   setTimeout(() => {
-    //     // resolve(true);
-    //     reject();
+    //     resolve(true);
+    //     // reject();
     //   }, 1000);
     // })).then(() => {
     //   setPhase(Phase.success);
@@ -47,6 +50,7 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
 
   return (
     <div className="area">
+      <input className="tx-hash-input merkle" placeholder="Enter Merkle Proof" value={merkle} onChange={ e => setMerkle(e.target.value) }/>
       {
         (phase === Phase.fail || phase === Phase.success) &&
           <BackTo onBack={handleBack} />
@@ -73,11 +77,13 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
               (
                 phase === Phase.success ?
                   <div className="verify-button verify-success">
-                    Success
+                    <img className="button-img" src={SuccessSvg} alt='' />
+                    <span className="button-text">Success</span>
                   </div>
                   :
                   <div className="verify-button verify-fail">
-                    Fail
+                    <img className="button-img" src={FailSvg} alt='' />
+                    <span className="button-text">Fail</span>
                   </div>
               )
           )
