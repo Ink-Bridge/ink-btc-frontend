@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useMemo, useState } from 'react';
 import { BackTo } from './back';
 import { NoAddress } from './no-address';
 import './request.css';
@@ -6,6 +6,7 @@ import { Send } from './send';
 import { useContractTx } from '../../core/hooks/use-contract-tx';
 import { useExampleContract } from '../../core/hooks/use-example-contract';
 import { useContractQuery } from '../../core/hooks/use-contract-query';
+import { useAccount } from '../../core/hooks/use-account';
 
 enum Phase {
   initial = 'initial',
@@ -20,7 +21,12 @@ export const Request: FC = (): ReactElement => {
   const { contract } = useExampleContract();
   const { execute: requestBTCAddress } = useContractTx({ title: 'request btc address', contract, method: 'requestBtcDepositAddress' });
   const { read: getBTCAddress } = useContractQuery({ contract, method: 'getBtcDepositAddress' });
+  const { currentAccount } = useAccount();
 
+  useMemo(() => {
+    setPhase(Phase.initial);
+    setBtcAddress('');
+  }, [currentAccount]);
   const handleEnter = async () => {
     setPhase(Phase.loading);
     const noAvailable = 'No Available Address';
@@ -33,6 +39,7 @@ export const Request: FC = (): ReactElement => {
       }
       await requestBTCAddress([]);
       btcAddress = await getBTCAddress();
+      console.log('get btc 2', btcAddress)
       setBtcAddress((btcAddress as any) || noAvailable);
       setPhase(Phase.success);
     } catch (e) {

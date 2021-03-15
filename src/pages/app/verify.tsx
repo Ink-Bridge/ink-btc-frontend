@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useMemo, useState } from 'react';
 import { useContractTx } from '../../core/hooks/use-contract-tx';
 import { useExampleContract } from '../../core/hooks/use-example-contract';
 import { BackTo } from './back';
@@ -6,6 +6,7 @@ import './verify.css';
 import SuccessSvg from '../../assets/success.svg';
 import FailSvg from '../../assets/fail.svg';
 import OvalSvg from '../../assets/oval.svg';
+import { useAccount } from '../../core/hooks/use-account';
 
 enum Phase {
   initial = 'initial',
@@ -24,7 +25,14 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
   const [ phase, setPhase ] = useState<Phase>(Phase.initial);
   const { contract } = useExampleContract();
   const { execute } = useContractTx({ title: 'verify transaction', contract, method: 'pushTransaction' });
+  const { currentAccount } = useAccount();
 
+  useMemo(() => {
+    setPhase(Phase.initial);
+    setTxHash('');
+    setMerkle('');
+  }, [currentAccount]);
+  
   const handleEnter = () => {
     if (!txHash || !merkle) {
       return;
