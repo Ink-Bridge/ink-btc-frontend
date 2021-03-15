@@ -1,7 +1,6 @@
 import { ContractPromise } from '@polkadot/api-contract';
 import { web3FromSource } from '@polkadot/extension-dapp';
 import { useCallback, useState } from 'react';
-import { handleTxResults } from './handle-tx-results';
 import { useAccount } from './use-account';
 import { useApi } from './use-api';
 
@@ -42,21 +41,10 @@ export const useContractTx = ({ contract, method }: ContractTxProps) => {
           ...fields
         );
         console.log('estimatedGas', estimatedGas, currentAccount.address, estimatedGas?.toBn() || '400000000000');
-        // const injector = await web3FromAddress(currentAccount.address);
         const injector = await web3FromSource(currentAccount.meta.source as any);
         console.log(currentAccount.meta.source, 'currentAccount.meta.source')
-        await tx.signAndSend(currentAccount.address, { signer: injector.signer }, handleTxResults(
-          'send',
-          {
-            txFailedCb: (r) => setIsLoading(false),
-            txSuccessCb: (r) => {
-              console.log(r, 'tx success');
-              setIsLoading(false);
-            }
-          },
-          (): void => setIsLoading(false),
-        ));
-        
+        await tx.signAndSend(currentAccount.address, { signer: injector.signer });
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsLoading(false);

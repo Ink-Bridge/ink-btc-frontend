@@ -13,7 +13,7 @@ export const AccountProvider: React.FC = ({ children }) => {
     const accounts = keyring.getPairs();
     console.log('accounts', accounts);
     
-    setCurrentAccount(accounts[1]);
+    setCurrentAccount(accounts[0]);
   }, [isApiReady]);
 
   return <AccountContext.Provider value={{ currentAccount }}>{children}</AccountContext.Provider>;

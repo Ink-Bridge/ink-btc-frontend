@@ -3,6 +3,8 @@ import { useBalance } from '../../core/hooks/use-balance';
 import './action.css';
 import { Request } from './request';
 import { Verify } from './verify';
+import { TabBgBlack } from './tab-bg-black';
+import { TabBg } from './tab-bg';
 
 enum TabChoosed {
   request = 'request',
@@ -12,7 +14,7 @@ enum TabChoosed {
 export const Action: FC = (): ReactElement => {
   const [ tab, setTab ] = useState<TabChoosed>(TabChoosed.request);
   const [ signal, setSignal ] = useState<number>(0);
-  const balance = useBalance(signal);
+  const { balance } = useBalance(signal);
 
   const handleVerified = (txHash: string) => {
     setSignal(signal + 1);
@@ -24,15 +26,25 @@ export const Action: FC = (): ReactElement => {
       <div className="tabs">
         <div
           onClick={ () => setTab(TabChoosed.request) }
-          className="tab-title request-tab-title"
-          style={{ background: tab === TabChoosed.request ? '#F7931A' : '#535353' }}>
-            Request Address
+          className="tab-title">
+            {
+              tab === TabChoosed.request ? <TabBg /> : <TabBgBlack/>
+            }
+            <div className="tab-text">
+              Request Address
+            </div>
+           {/* style={{ background: tab === TabChoosed.request ? '#F7931A' : '#535353' }}> */}
         </div>
         <div
           onClick={ () => setTab(TabChoosed.verify) }
-          className="tab-title verify-tab-title"
-          style={{ background: tab === TabChoosed.verify ? '#F7931A' : '#535353' }}>
-            Verify
+          className="tab-title tab-verify">
+            {
+              tab === TabChoosed.verify ? <TabBg rotate={true}/> : <TabBgBlack rotate={true}/>
+            }
+            <div className="tab-text">
+              Verify
+            </div>
+          {/* style={{ background: tab === TabChoosed.verify ? '#F7931A' : '#535353' }}> */}
         </div>
       </div>
       <div className="action-container">

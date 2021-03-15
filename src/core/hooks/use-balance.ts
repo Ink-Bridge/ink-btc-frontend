@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useWBTCContract } from './use-wbtc-contract';
 import { useAccount } from './use-account';
 
-export const useBalance = (signal: number): number => {
+export const useBalance = (signal: number): { balance: number } => {
   const [ balance, setBalance ] = useState<number>(0);
   const { contract } = useWBTCContract();
   const { currentAccount } = useAccount();
@@ -11,8 +11,10 @@ export const useBalance = (signal: number): number => {
 
   useEffect(() => {
     console.log('read balance')
-    read(currentAccount?.address).then(b => setBalance((b as any) || 0));
+    read(currentAccount?.address).then(b => {
+      setBalance((b as any) || 0);
+    });
   }, [signal]);
 
-  return balance;
+  return { balance };
 };
