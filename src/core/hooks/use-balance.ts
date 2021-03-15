@@ -14,7 +14,7 @@ export const useBalance = (signal: number): { balance: number } => {
     read(currentAccount?.address).then(b => {
       setBalance((b as any) || 0);
     });
-  }, [signal, currentAccount]);
+  }, [signal, currentAccount, read]);
 
   return { balance };
 };

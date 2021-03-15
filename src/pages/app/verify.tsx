@@ -38,11 +38,14 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
       return;
     }
     setPhase(Phase.loading);
-    execute([`0x${txHash}`, `0x${setMerkle}`, '']).then((e) => {
-      console.log(e);
+    execute([`0x${txHash}`, `0x${merkle}`, null]).then((e) => {
+      console.log('push tx', e);
       setPhase(Phase.success);
       onVerified()
-    },  () => setPhase(Phase.fail));
+    },  (e) => {
+      console.log('fail e', e);
+      setPhase(Phase.fail);
+    });
   };
 
   const handleBack = () => {
@@ -60,7 +63,7 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
         phase === Phase.initial ?
           <input style={{ marginTop: '4.8rem' }} className="tx-hash-input" placeholder="Enter Raw Transaction" value={txHash} onChange={ e => setTxHash(e.target.value) }/>
           :
-          <div className="tx-hash" style={{ marginTop: phase === Phase.loading ? '4.8rem' : '2.4rem' }}>{ txHash }</div>
+          <div className="tx-hash" style={{ overflow: 'hidden', marginTop: phase === Phase.loading ? '4.8rem' : '2.4rem' }}>{ txHash }</div>
       }
 
       {
