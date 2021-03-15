@@ -5,6 +5,7 @@ import { BackTo } from './back';
 import './verify.css';
 import SuccessSvg from '../../assets/success.svg';
 import FailSvg from '../../assets/fail.svg';
+import OvalSvg from '../../assets/oval.svg';
 
 enum Phase {
   initial = 'initial',
@@ -14,7 +15,7 @@ enum Phase {
 }
 
 interface IProps {
-  onVerified(txHash: string): void;
+  onVerified(): void;
 }
 
 export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
@@ -29,19 +30,11 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
       return;
     }
     setPhase(Phase.loading);
-    execute([txHash, setMerkle, '']).then((e) => {
+    execute([`0x${txHash}`, `0x${setMerkle}`, '']).then((e) => {
       console.log(e);
       setPhase(Phase.success);
+      onVerified()
     },  () => setPhase(Phase.fail));
-    // (new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve(true);
-    //     // reject();
-    //   }, 1000);
-    // })).then(() => {
-    //   setPhase(Phase.success);
-    //   onVerified(txHash);
-    // },  () => setPhase(Phase.fail));
   };
 
   const handleBack = () => {
@@ -57,7 +50,7 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
       }
       {
         phase === Phase.initial ?
-          <input style={{ marginTop: '4.8rem' }} className="tx-hash-input" placeholder="Enter BTC transaction hash" value={txHash} onChange={ e => setTxHash(e.target.value) }/>
+          <input style={{ marginTop: '4.8rem' }} className="tx-hash-input" placeholder="Enter Raw Transaction" value={txHash} onChange={ e => setTxHash(e.target.value) }/>
           :
           <div className="tx-hash" style={{ marginTop: phase === Phase.loading ? '4.8rem' : '2.4rem' }}>{ txHash }</div>
       }
@@ -71,7 +64,8 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
           (
             phase === Phase.loading ?
               <div className="verify-button">
-                Verifying...
+                <img className="button-img button-loading" src={OvalSvg} alt='' />
+                <span className="button-text">Verifying...</span>
               </div>
               :
               (

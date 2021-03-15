@@ -40,11 +40,36 @@ export const useContractTx = ({ contract, method }: ContractTxProps) => {
           },
           ...fields
         );
-        console.log('estimatedGas', estimatedGas, currentAccount.address, estimatedGas?.toBn() || '400000000000');
         const injector = await web3FromSource(currentAccount.meta.source as any);
-        console.log(currentAccount.meta.source, 'currentAccount.meta.source')
+        // await tx.signAsync(currentAccount, { signer: injector.signer });
+        // return new Promise(async (resolve, reject) => {
+        //   try {
+        //     const unsubscribe = await tx.send(
+        //       handleTxResults(
+        //         'send',
+        //         {
+        //           txFailedCb: (r) => {
+        //             setIsLoading(false);
+        //             reject(r);
+        //           },
+        //           txSuccessCb: (r) => {
+        //             setIsLoading(false);
+        //             resolve(undefined);
+        //           }
+        //         },
+        //         (): void => {
+        //           setIsLoading(false);
+        //           unsubscribe();
+        //         }
+        //       )
+        //     );
+        //   } catch (error) {
+        //     setIsLoading(false);
+        //     reject(error);
+        //   }
+        // });
         await tx.signAndSend(currentAccount.address, { signer: injector.signer });
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsLoading(false);

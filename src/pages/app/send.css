@@ -58,3 +58,7 @@
   font-family: WorkSans-Regular_Bold, WorkSans;
   color: #F7931A;
 }
+.address-button:active {
+  background-color: #F7931A;
+  color: white;
+}

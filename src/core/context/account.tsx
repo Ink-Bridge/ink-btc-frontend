@@ -6,15 +6,16 @@ import { AccountContext } from './account-context';
 export const AccountProvider: React.FC = ({ children }) => {
   const { isApiReady } = useApi();
   const [currentAccount, setCurrentAccount] = useState<KeyringPair>();
+  const [accounts, setAccounts] = useState<KeyringPair[]>([]);
 
   useMemo(() => {
     if (!isApiReady) return;
 
-    const accounts = keyring.getPairs();
-    console.log('accounts', accounts);
-    
-    setCurrentAccount(accounts[0]);
+    const _accounts = keyring.getPairs();
+    console.log('accounts', _accounts);
+    setAccounts(_accounts);
+    setCurrentAccount(_accounts[0]);
   }, [isApiReady]);
 
-  return <AccountContext.Provider value={{ currentAccount }}>{children}</AccountContext.Provider>;
+  return <AccountContext.Provider value={{ currentAccount, accounts, setCurrentAccount }}>{children}</AccountContext.Provider>;
 };

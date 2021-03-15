@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import './send.css';
 import SendTo from '../../assets/send.webp';
+import copy from 'copy-to-clipboard';
 
 export const Send: FC<{ address: string }> = ({ address }): ReactElement => {
   return (
@@ -14,7 +15,7 @@ export const Send: FC<{ address: string }> = ({ address }): ReactElement => {
           { address }
         </span>
       </div>
-      <div className="address-button">
+      <div className="address-button" onClick={ () => copy(address) }>
         Copy Address
       </div>
     </div>

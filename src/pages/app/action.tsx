@@ -1,10 +1,12 @@
-import React, { FC, ReactElement, useMemo, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useBalance } from '../../core/hooks/use-balance';
 import './action.css';
 import { Request } from './request';
 import { Verify } from './verify';
 import { TabBgBlack } from './tab-bg-black';
 import { TabBg } from './tab-bg';
+import { useContractQuery } from '../../core/hooks/use-contract-query';
+import { useWBTCContract } from '../../core/hooks/use-wbtc-contract';
 
 enum TabChoosed {
   request = 'request',
@@ -15,11 +17,17 @@ export const Action: FC = (): ReactElement => {
   const [ tab, setTab ] = useState<TabChoosed>(TabChoosed.request);
   const [ signal, setSignal ] = useState<number>(0);
   const { balance } = useBalance(signal);
+  const { contract } = useWBTCContract();
+  const [ decimals, setDecimals ] = useState<number>(8);
+  const { read: readDecimals } = useContractQuery({ contract, method: 'tokenDecimals' });
 
-  const handleVerified = (txHash: string) => {
+  const handleVerified = () => {
     setSignal(signal + 1);
   };
-  useMemo(() => console.log(tab, 'tab'), [tab]);
+
+  useEffect(() => {
+    readDecimals().then(_decimals => setDecimals((_decimals as any) || 8));
+  }, [readDecimals]);
 
   return (
     <div className="action">
@@ -57,7 +65,7 @@ export const Action: FC = (): ReactElement => {
         <div className="balance-area">
           <span className="balance-title">inkBTC balance</span>
           <div className="balance">
-            <span>{ balance }</span>
+            <span>{ balance / (Math.pow(10, decimals)) }</span>
           </div>
         </div>
       </div>

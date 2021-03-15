@@ -13,6 +13,7 @@ export const contractQuery = async (
   method: string,
   ...fields: any[]
 ) => {
+  console.log('query account', currentAccount);
   const data = await contract.query[method](currentAccount, {}, ...fields);
 
   if (data.output?.isEmpty) {

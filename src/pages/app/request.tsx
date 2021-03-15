@@ -26,6 +26,7 @@ export const Request: FC = (): ReactElement => {
     const noAvailable = 'No Available Address';
     try {
       let btcAddress = await getBTCAddress();
+      console.log('get btc', btcAddress)
       if (btcAddress) {
         setPhase(Phase.success);
         return setBtcAddress((btcAddress as any) || noAvailable);
