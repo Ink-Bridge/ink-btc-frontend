@@ -31,6 +31,7 @@ export const Verify: FC<IProps> = ({ onVerified }): ReactElement => {
     setPhase(Phase.initial);
     setTxHash('');
     setMerkle('');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAccount]);
   
   const handleEnter = () => {
