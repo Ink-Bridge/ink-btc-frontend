@@ -32,7 +32,7 @@ interface Props {
   url?: string;
 }
 
-export const ApiProvider = React.memo(function Api({ children }: Props): React.ReactElement<Props> | null {
+export const ApiProvider = React.memo(function Api({ children }: Props): React.ReactElement<Props> {
   const [ isApiReady, setIsReady ] = useState<boolean>(false);
   const [ api, setApi ] = useState<ApiPromise>({} as ApiPromise);
   
