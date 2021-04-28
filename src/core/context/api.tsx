@@ -41,7 +41,7 @@ export const ApiProvider = React.memo(function Api({ children }: Props): React.R
       .then(() => web3Enable('polkadosst-js/apps'))
       .then(() => web3Accounts())
       .then(accounts => {
-        const wsProvider = new WsProvider('wss://ws.jupiter-poa.patract.cn/');
+        const wsProvider = new WsProvider('wss://deposit.staging.jupiter.patract.cn/');
         const apiPromise = new ApiPromise({
           provider: wsProvider,
         });
