@@ -1,2 +1,2 @@
-export const ExampleAddr = '3gYQ9b2a4KQkSMBAKerAFZAJNeqKFTZ67NJw3URPDMTSUZVt';
-export const WbtcAddr = '3e71hfU6zYRtP7AogsXR8jKe9Y1hbiBRoB23yTfzbCZG3tPL';
+export const ExampleAddr = '3eEz7yWLoj9oDNTrjasAAhwKyt3koFPvsCd34AveLLnUe5V7';
+export const WbtcAddr = '3f5Y4rhMYuZ4ti8PYNgGqZUFLzhLcaeQqF2DyABh3WWFHZYV';
